@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turmas</title>
+    <link rel="stylesheet" href="/School-Manager-main/css/style.css">
+    <link rel="icon" type="image/png" href="/School-Manager-main/imgs/icon.png"/>
+    <script src="/School-Manager-main/scripts/script.js" defer></script>
+</head>
+
+<body>
+
+    <div id="menu">
+        <img src="/School-Manager-main/imgs/logo.png" alt="">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="turmas.html">Turmas</a></li>
+            <li><a href="aluno.html">Aluno</a></li>
+            <li><a href="disciplinas.html">Disciplinas</a></li>
+            <li><a href="professor.html">Professor</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="boletins.html">Boletins</a></li>
+        </ul>
+    </div>
+
+    <div id="conteudo">
+        <div id="formulario">
+            <h2>Cadastro de Turma</h2>
+            <form id="form">
+                <label for="numero">Número da sala:</label>
+                <input type="numero" id="numero " required>
+
+                <label for="disciplinas">Disciplinas:</label>
+                <input type="disciplinas" id="disciplinas" required>
+
+                <label for="horarioDisciplina">Horários das disciplinas:</label>
+                <input type="horarioDisciplina" id="horarioDisciplina" required>
+
+                <button type="button" onclick="criarAluno()">Cadastrar</button>
+                <button type="button" id="buttonListar" onclick="listarAlunos()">Listar</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
