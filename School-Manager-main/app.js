@@ -10,7 +10,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     port: 5432, // Porta padrão do PostgreSQL
-    password: '0701' // Aqui coloca a senha que você cadastrou quando instalou o postgres
+    password: '2002' // Aqui coloca a senha que você cadastrou quando instalou o postgres
 });
 
 app.use(bodyParser.json());
@@ -91,7 +91,7 @@ app.get('/alunos/:id', async (req, res) => {
             res.status(404).send('Aluno não encontrado');
         } else {
             res.json(result.rows[0]);
-        }
+        }disciplina
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');

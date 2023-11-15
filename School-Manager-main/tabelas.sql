@@ -21,18 +21,18 @@ CREATE TABLE professores (
     senha VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE disciplinas (
+    disciplina_id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    carga_horaria INTEGER NOT NULL
+);
+
 CREATE TABLE turmas (
     turma_id SERIAL PRIMARY KEY,
     disciplina_id INTEGER REFERENCES disciplinas(disciplina_id) NOT NULL,
     horario VARCHAR(50) NOT NULL,
     sala_aula VARCHAR(20) NOT NULL,
     professor_id INTEGER REFERENCES professores(professor_id) NOT NULL
-);
-
-CREATE TABLE disciplinas (
-    disciplina_id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    carga_horaria INTEGER NOT NULL
 );
 
 CREATE TABLE notas (
@@ -46,7 +46,7 @@ CREATE TABLE matriculas (
     matricula_id SERIAL PRIMARY KEY,
     aluno_id INT REFERENCES alunos(aluno_id) ON DELETE CASCADE,
     disciplina_id INT REFERENCES disciplinas(disciplina_id) ON DELETE CASCADE,
-    data_matricula DATE,
+    data_matricula DATE
 );
 
 
