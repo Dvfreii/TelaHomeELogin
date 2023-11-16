@@ -3,16 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>Login</title>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./node_module">
-    <link rel="stylesheet" href="login.css">
-    <link rel="shortcut icon" type="imagex/png" href= "/img/img.ico">
+    <link rel="stylesheet" href="/School-Manager-main/css/login.css">
+    <link rel="shortcut icon" type="imagex/png" href= "/School-Manager-main/imgs/img.ico">
 </head>
 <body>
     <div class="container">
         <div class="content"> <!-- tela FAZER LOGIN-->
             <div class="first-column">
-                <img src="/img/GESTÃO-removebg-preview.png" alt="">
+                <img src="/School-Manager-main/imgs/GESTÃO-removebg-preview.png" alt="">
             </div>
             <div class="second-column">                   
                 <h2 class="title">LOGIN</h2>
@@ -35,29 +33,15 @@
                     </label>
                 </form>
                 
-                    <a href="/navbar/home.html">
-                        <button id="signup" class="btn1">Singup</button>
+                    <a href="/School-Manager-main/pagina-adm/index.html">
+                        <button id="signup">Singup</button>
                     </a>
                 
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const pwd1 = document.getElementById("pass1");
-            const showPasswordBtn = document.getElementById("showPasswordBtn");
-
-            showPasswordBtn.addEventListener('click', function () {
-                if (pwd1.type === "password") {
-                    pwd1.type = "text";
-                } else {
-                    pwd1.type = "password";
-                }
-            });
-
-        });
-    </script>
+    <script src="/School-Manager-main/scripts/nav.js"></script>
 
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>

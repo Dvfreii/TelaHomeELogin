@@ -10,7 +10,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     port: 5432, // Porta padrão do PostgreSQL
-    password: '2002' // Aqui coloca a senha que você cadastrou quando instalou o postgres
+    password: '1234' // Aqui coloca a senha que você cadastrou quando instalou o postgres
 });
 
 app.use(bodyParser.json());
