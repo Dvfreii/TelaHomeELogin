@@ -10,7 +10,11 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     port: 5432, // Porta padrão do PostgreSQL
+<<<<<<< Updated upstream:School-Manager-main/School-Manager-main/app.js
     password: '0701' // Aqui coloca a senha que você cadastrou quando instalou o postgres
+=======
+    password: '1234' // Aqui coloca a senha que você cadastrou quando instalou o postgres
+>>>>>>> Stashed changes:School-Manager-main/scripts/app.js
 });
 
 app.use(bodyParser.json());

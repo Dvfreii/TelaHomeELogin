@@ -8,10 +8,10 @@
 }
 
 .menu-lateral{
-    width: 80px;
+    width: 85px;
     height: 100%;
     background-color: #84d7ff;
-    padding: 40px 0 40px 1%;
+    padding: 40px 0 50px 1%;
     box-shadow: 5px 0px 0px 0px #dcf3ff;
     position: fixed;
     top: 0;
@@ -27,16 +27,22 @@
 
 }
 
-div.expandir{
-    width: 100%;
+#logo-nav{
+    width: 80px;
+    height: 90px;
+    margin-left: -14.6px;
+    margin-bottom: 20px;
+    transition: 0.5s;
     
 }
-div.expandir >  svg#exp{
-    color: #000000;
-    cursor: pointer;
-    font-size: 30px;
-    margin-left: 10px;
+#logo-nav.hovered {
+    width: 150px;
+    height: 160px;
+    margin: 0px 0px 20px 50px;; 
+    transition: 0.5s;
 }
+
+
 
 ul{
     height: 100%;
@@ -65,9 +71,4 @@ ul li.item-menu a .txt{
 ul li.item-menu a .icon{
     font-size: 30px;
     margin-left: 10px;
-}
-ul li.item-menu.selected {
-    background-color: #dcf3ff;
-    border-radius: 10px 0px 0px 10px;
-    transition: 0.5s;
 }

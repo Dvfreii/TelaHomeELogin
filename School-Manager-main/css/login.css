@@ -114,26 +114,26 @@ form input#pass1 {
   height: 30px;
   width: calc(100% - 65px); /* Ajuste o valor para garantir que o campo de senha ocupe o restante do espaço */
 }
-.btn1{
-  background: #3ff32f;
-  border-radius: 10px;
-  width: 90%;
-  height: 7%;
-  border: none;
-  cursor: pointer;
-}
-.btn1 a{
+
+
+#signup{
   color: #000000;
   font-size: 20px;
   font-weight: bold;
   text-decoration: none;
+  background: #3ff32f;
+  width: 17vw;
+  height: 3.5vh;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
-  
-.btn1:hover{
+
+a:hover{
   background: #3ff32f;
   border-radius: 10px;
-  width: 90%;
-  height: 7%;
+  width: 17vw;
+  height: 3.5vh;
   border: none;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   
@@ -151,26 +151,26 @@ form input#pass1 {
   align-self: center;
   font-weight: bold;
 }
-img{
-  width: 40vw;
-  height: 80vh;
+#logo-login{
+  width: 30vw;
+  height: 50vh;
   border-radius: 15px 0px 0px 15px;
   position: absolute;
   z-index: 1;
 }
 @media screen and (max-width: 950px) {
-  img{
-    width: 50vw;
-    height: 50vh;
+  #logo-login{
+    width: 20vw;
+    height: 40vh;
     border-radius: 15px 0px 0px 15px;
     position: absolute;
     z-index: 1;
   }
 }
 @media screen and (max-width: 80px) {
-  img{
-    width: 30vw;
-    height: 30vh;
+  #logo-login {
+    width: 10vw;
+    height: 10vh;
     border-radius: 15px 0px 0px 15px;
     position: absolute;
     z-index: 1;
