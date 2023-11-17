@@ -85,3 +85,128 @@ ul li.item-menu a .icon{
     transition: 0.5s;
     margin-left: -15.5px;
 }
+@media screen and (max-width: 1024px) {
+    .menu-lateral {
+      width: 60px;
+      padding-left: 0.5%;
+    }
+  
+    .menu-lateral:hover {
+      width: 240px;
+    }
+  
+    div.expandir > svg#exp {
+      font-size: 24px;
+      margin-left: 8px;
+    }
+  
+    ul li.item-menu a {
+      font-size: 16px;
+      padding: 16px 4%;
+      margin-bottom: 16px;
+      line-height: 32px;
+    }
+  
+    ul li.item-menu a .txt {
+      margin-left: 20px;
+    }
+  
+    ul li.item-menu a .icon {
+      font-size: 24px;
+      margin-left: 8px;
+    }
+  
+    #logo-nav.hovered {
+      width: 90px;
+      margin-left: 10px;
+      margin-bottom: 8px;
+    }
+  
+    #logo-nav {
+      width: 60px;
+      margin-left: -9.5px;
+    }
+  }
+  
+@media screen and (max-width: 600px) {
+    .menu-lateral {
+      width: 100%;
+      padding-left: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      box-shadow: none;
+    }
+  
+    .menu-lateral:hover  {
+        width: 300px;
+        max-width: 50%;
+        transition: 0.5s;
+      }
+  
+    div.expandir {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+  
+    div.expandir > svg#exp {
+      display: none;
+    }
+  
+    ul li.item-menu a {
+      font-size: 14px;
+      padding: 12px 4%;
+      margin-bottom: 12px;
+      line-height: 24px;
+      justify-content: center;
+    }
+  
+    ul li.item-menu a .txt {
+      display: none;
+    }
+  
+    ul li.item-menu a .icon {
+      font-size: 24px;
+      margin-left: 0;
+    }
+  
+    #logo-nav.hovered {
+      display: block; /* Altere aqui para 'block' para garantir que a imagem seja exibida */
+      width: 100%;
+      text-align: center;
+    }
+  
+    #logo-nav {
+      display: block; /* Altere aqui para 'block' para garantir que a imagem seja exibida */
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 599px) {
+    .menu-lateral {
+      width: 10%;
+      padding: 0;
+      transition: none;
+    }
+  
+    .menu-lateral:hover {
+      width: 10%; /* Defina para a largura desejada quando houver hover */
+    }
+  
+    #logo-nav {
+      display: block;
+      width: 90%; /* Ajuste o tamanho da imagem para ocupar toda a largura do menu */
+      text-align: center;
+      margin-left: 2px;
+    }
+  
+    #logo-nav.hovered {
+      display: block;
+      margin-bottom: 2px;
+      margin-left: -2px;
+    }
+  }
+  
+
+
+   

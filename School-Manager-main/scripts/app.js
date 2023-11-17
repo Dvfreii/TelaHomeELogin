@@ -147,6 +147,20 @@ app.post('/professores', async (req, res) => {
             [nome, data_nascimento, foto, siape, endereco, telefone, email, senha]
         );
         res.json(result.rows[0]);
+        const dataNascimento = new Date(result.rows[0].data_nascimento);
+        const dataNascimentoFormatada = dataNascimento.toLocaleDateString('pt-BR'); // Altere para o formato desejado
+
+        res.json({
+            professor_id: result.rows[0].professor_id,
+            nome: result.rows[0].nome,
+            siape: result.rows[0].siape,
+            endereco: result.rows[0].endereco,
+            telefone: result.rows[0].telefone,
+            email: result.rows[0].email,
+            senha: result.rows[0].senha,
+            data_nascimento: dataNascimentoFormatada,
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
@@ -157,7 +171,21 @@ app.post('/professores', async (req, res) => {
 app.get('/professores', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM professores');
-        res.json(result.rows);
+        const professoresFormatados = result.rows.map(professor => {
+            const dataNascimento = new Date(professor.data_nascimento);
+            return {
+                professor_id: professor.professor_id,
+                nome: professor.nome,
+                siape: professor.siape,
+                endereco: professor.endereco,
+                telefone: professor.telefone,
+                email: professor.email,
+                senha: professor.senha,
+                data_nascimento: dataNascimento.toLocaleDateString('pt-BR'), // Altere para o formato desejado
+            };
+        });
+
+        res.json(professoresFormatados);
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');

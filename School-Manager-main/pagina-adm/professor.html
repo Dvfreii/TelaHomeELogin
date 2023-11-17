@@ -100,13 +100,13 @@
     <div id="conteudo">
         <div id="formulario">
             <h2>Cadastro do Professor</h2>
-            <form id="formProfessor">
+            <form id="formAluno">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" required>
 
                 <label for="siape">SIAPE:</label>
-                <input type="siape" id="siape" required>
-                
+                <input type="text" id="siape" required>
+
                 <label for="dataNascimento">Data de Nascimento:</label>
                 <input type="date" id="dataNascimento" required>
 
@@ -122,10 +122,27 @@
                 <label for="telefone">Telefone:</label>
                 <input type="tel" id="telefone" required>
 
-                <button type="button" onclick="criarAluno()">Cadastrar</button>
-                <button type="button" id="buttonListar" onclick="listarAlunos()">Listar</button>
+                <button type="button" onclick="criarProfessor()">Cadastrar</button>
+                <button type="button" id="buttonListar" onclick="listarProfessores()">Listar</button>
             </form>
         </div>
+
+        <table id="tabela">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>siape</th>
+                    <th id="date">Data de Nascimento</th>
+                    <th>E-mail</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>Ações</th> <!-- Adicionado a coluna para ação (excluir) -->
+                </tr>
+            </thead>
+            <tbody id="tabelaProfessores">
+            </tbody>
+        </table>
     </div>
 
 </body>
