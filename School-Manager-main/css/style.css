@@ -18,7 +18,7 @@ body {
 #menu img {
     max-width: 100%;
     height: auto;
-    margin-bottom: 10px; /* Adiciona um espaço entre a imagem e os links */
+    margin-bottom: 10px;
 }
 
 #menu a {
@@ -26,6 +26,26 @@ body {
     color: black;
     padding: 10px;
     display: block;
+}
+
+#menu button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin-top: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
 }
 
 #conteudo {
