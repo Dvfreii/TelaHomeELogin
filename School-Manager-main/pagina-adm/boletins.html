@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/School-Manager-main/css/style.css">
     <link rel="stylesheet" href="/School-Manager-main/css/nav.css">
     <link rel="shortcut icon" type="imagex/png" href="/School-Manager-main/imgs/img.ico">
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="/School-Manager-main/scripts/nav.js"></script>
     <script src="/School-Manager-main/scripts/script.js" defer></script>
 </head>
@@ -98,8 +98,129 @@
     </header>
 
     <div id="conteudo">
-        <h2>Boletins</h2>
-        <p>Bem-vindo à minha página! Escolha uma opção no menu lateral.</p>
+
+        <h1 id="tituloPagina">Boletins</h1>
+    
+        <table id="tabela" class="tabelaAlunos">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Data de Nascimento</th>
+                </tr>
+            </thead>
+            <tbody id="listaAlunos">
+                <!-- Os alunos serão adicionados dinamicamente aqui -->
+            </tbody>
+        </table>
+    
+        <div id="detalhesAluno">
+        </div>
+    
+        <script>
+            // Vamos usar jQuery para fazer a requisição AJAX
+            const apiUrl = 'http://localhost:3000/alunos';
+
+            function mostrarAlunos() {
+                $('#tituloPagina').show();
+                $('.tabelaAlunos').show();
+                $('#detalhesAluno').html('');
+            }
+    
+            $.get(apiUrl, function(alunos) {
+                const listaAlunos = $('#listaAlunos');
+    
+                // Iterar sobre a lista de alunos e adicionar linhas à tabela
+                alunos.forEach(aluno => {
+                    const alunoRow = `
+                        <tr>
+                            <td><a href="#" data-aluno-id="${aluno.aluno_id}">${aluno.nome}</a></td>
+                            <td>${aluno.endereco}</td>
+                            <td>${aluno.telefone}</td>
+                            <td>${aluno.email}</td>
+                            <td>${new Date(aluno.data_nascimento).toLocaleDateString('pt-BR')}</td>
+                        </tr>
+                    `;
+                    listaAlunos.append(alunoRow);
+                });
+    
+                $('a[data-aluno-id]').click(function () {
+                    const alunoId = $(this).data('aluno-id');
+                    const detalhesAluno = $('#detalhesAluno');
+                    const detalhesUrl = `http://localhost:3000/alunos/${alunoId}`;
+
+                    // Fazer uma nova requisição para obter os detalhes do aluno
+                    $.get(detalhesUrl, function(data) {
+                        $('.tabelaAlunos').hide();
+                        $('#tituloPagina').hide();
+                        detalhesAluno.html(
+                        `<button onclick="mostrarAlunos()">Voltar</button>
+                        <div class="container mt-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1>Detalhes do Aluno</h1>
+                                    <table id="tabela">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="col">Nome</th>
+                                                <td>${data.nome}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Endereço</th>
+                                                <td>${data.endereco}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Telefone</th>
+                                                <td>${data.telefone}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Email</th>
+                                                <td>${data.email}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Data de Nascimento</th>
+                                                <td>${new Date(data.data_nascimento).toLocaleDateString('pt-BR')}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <br/>
+                                    <h2>Notas, Médias e Faltas por Disciplina</h2>
+                                    <table id="tabela">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Disciplina</th>
+                                                <th scope="col">Notas</th>
+                                                <th scope="col">Média</th>
+                                                <th scope="col">Faltas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${Object.keys(data.notasPorDisciplina).map(disciplina => `
+                                                <tr>
+                                                    <td scope="row">${disciplina}</th>
+                                                    <td>${data.notasPorDisciplina[disciplina].join(' ~ ')}</td>
+                                                    <td>${data.mediasPorDisciplina[disciplina]}</td>
+                                                    <td>${data.faltas[disciplina] || 0}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>`
+                        );
+                    });
+                });
+
+                listItem.append(link);
+                listaAlunos.append(listItem);
+            });
+        </script>
+    
     </div>
 
 </body>

@@ -10,7 +10,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     port: 5432, // Porta padrão do PostgreSQL
-    password: '1234' // Aqui coloca a senha que você cadastrou quando instalou o postgres
+    password: 'qwe123' // Aqui coloca a senha que você cadastrou quando instalou o postgres
 });
 
 app.use(bodyParser.json());
@@ -80,18 +80,80 @@ app.get('/alunos', async (req, res) => {
     }
 });
 
-
-// Rota para mostrar um aluno por ID
+// Rota para mostrar um aluno por ID com notas e faltas
 app.get('/alunos/:id', async (req, res) => {
     try {
         const alunoId = req.params.id;
-        const result = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [alunoId]);
+        
+        // Consulta para obter informações do aluno
+        const alunoQuery = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [alunoId]);
 
-        if (result.rows.length === 0) {
+        if (alunoQuery.rows.length === 0) {
             res.status(404).send('Aluno não encontrado');
-        } else {
-            res.json(result.rows[0]);
-        }disciplina
+            return;
+        }
+
+        const aluno = alunoQuery.rows[0];
+
+        // Obter notas do aluno com o nome da disciplina
+        const notasQuery = await pool.query(`
+            SELECT n.nota, d.nome AS disciplina
+            FROM notas n
+            JOIN disciplinas d ON n.disciplina_id = d.disciplina_id
+            WHERE n.aluno_id = $1
+        `, [alunoId]);
+
+        const notasPorDisciplina = {};
+
+        // Loop para agrupar as notas por disciplina
+        notasQuery.rows.forEach(nota => {
+            if (!notasPorDisciplina[nota.disciplina]) {
+                notasPorDisciplina[nota.disciplina] = [];
+            }
+            notasPorDisciplina[nota.disciplina].push(parseFloat(nota.nota)); // Converte a nota para número
+        });
+
+        // Calcula a média para cada disciplina
+        const mediasPorDisciplina = {};
+        for (const disciplina in notasPorDisciplina) {
+            const notas = notasPorDisciplina[disciplina];
+            const media = notas.reduce((acc, nota) => acc + nota, 0) / notas.length;
+            mediasPorDisciplina[disciplina] = media.toFixed(2); // Limita a média a duas casas decimais
+        }
+
+        // Obter faltas
+        const faltasQuery = await pool.query(`
+            SELECT d.nome, COUNT(*) AS faltas
+            FROM presencas p
+            JOIN aulas a ON p.aula_id = a.aula_id
+            JOIN turmas t ON a.turma_id = t.turma_id
+            JOIN disciplinas d ON t.disciplina_id = d.disciplina_id
+            WHERE p.aluno_id = $1 AND p.presenca = false
+            GROUP BY d.disciplina_id
+        `, [alunoId]);
+
+        const faltas = {};
+        console.log(notasPorDisciplina);
+        console.log(mediasPorDisciplina);
+        faltasQuery.rows.forEach(falta => {
+            faltas[falta.nome] = falta.faltas;
+        });
+
+        // Combinar todas as informações
+        const alunoDetalhes = {
+            aluno_id: aluno.aluno_id,
+            nome: aluno.nome,
+            endereco: aluno.endereco,
+            telefone: aluno.telefone,
+            email: aluno.email,
+            senha: aluno.senha,
+            data_nascimento: aluno.data_nascimento,
+            notasPorDisciplina,
+            mediasPorDisciplina,
+            faltas,
+        };
+
+        res.json(alunoDetalhes);
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
