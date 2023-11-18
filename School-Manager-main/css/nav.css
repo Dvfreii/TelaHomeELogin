@@ -127,21 +127,18 @@ ul li.item-menu a .icon{
       margin-left: -9.5px;
     }
   }
+
   
-@media screen and (max-width: 600px) {
-    .menu-lateral {
-      width: 100%;
-      padding-left: 0;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      box-shadow: none;
-    }
-  
-    .menu-lateral:hover  {
-        width: 300px;
-        max-width: 50%;
-        transition: 0.5s;
-      }
+@media screen and (max-width: 800px) {
+  .menu-lateral {
+    width: 10%;
+    padding: 0;
+    transition: none;
+  }
+
+  .menu-lateral:hover {
+    width: 10%; /* Defina para a largura desejada quando houver hover */
+  }
   
     div.expandir {
       display: flex;
@@ -171,17 +168,20 @@ ul li.item-menu a .icon{
       margin-left: 0;
     }
   
-    #logo-nav.hovered {
-      display: block; /* Altere aqui para 'block' para garantir que a imagem seja exibida */
-      width: 100%;
+    #logo-nav {
+      display: block;
+      width: 80%; /* Ajuste o tamanho da imagem para ocupar toda a largura do menu */
       text-align: center;
+      margin-left: 2px;
     }
   
-    #logo-nav {
-      display: block; /* Altere aqui para 'block' para garantir que a imagem seja exibida */
-      width: 100%;
-    }
+    #logo-nav.hovered {
+      display: block;
+      margin-bottom: 2px;
+      margin-left: 1.5px;
+      width: 60px;
   }
+}
   @media screen and (max-width: 599px) {
     .menu-lateral {
       width: 10%;
