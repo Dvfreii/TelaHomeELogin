@@ -27,7 +27,7 @@
                         <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
                             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
                         </svg></span>
-                        <span class="txt">home</span>
+                        <span class="txt">Home</span>
                     </a>
                 </li>
                 <li class="item-menu">
@@ -37,7 +37,7 @@
                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                           </svg></span>
                         
-                        <span class="txt">turmas</span>
+                        <span class="txt">Turmas</span>
                     </a>
                 </li>
                 <li class="item-menu">
@@ -47,7 +47,7 @@
                             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
                           </svg></span>
                         
-                        <span class="txt">aluno</span>
+                        <span class="txt">Aluno</span>
                     </a>
                 </li>
                 <li class="item-menu">
@@ -67,7 +67,7 @@
                             <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
                           </svg></span>
                         
-                        <span class="txt">professor</span>
+                        <span class="txt">Professor</span>
                     </a>
                 </li>
                 <li class="item-menu">
@@ -77,7 +77,7 @@
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                           </svg></span>
                         
-                        <span class="txt">eventos</span>
+                        <span class="txt">Eventos</span>
                     </a>
                 </li>
                 <li class="item-menu">
@@ -87,7 +87,7 @@
                             <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z"/>
                           </svg></span>
                         
-                        <span class="txt">boletins</span>
+                        <span class="txt">Boletins</span>
                     </a>
                 </li>
                 
@@ -103,14 +103,31 @@
             <form id="formDisciplina">
                 <label for="nomeDisciplina">Nome:</label>
                 <input type="text" id="nome" required>
+                <label for="carga_horaria">Horário da Disciplina:</label>
+                <input type="number" id="carga_horaria" required>
 
-                <!-- <label for="horarioDisciplina">Horário da Disciplina:</label>
-                <input type="horario" id="horarioDisciplina" required> -->
-
-                <button type="button" onclick="">Cadastrar</button>
-                <button type="button" id="buttonListar" onclick="listarAlunos()">Listar</button>
+                <button type="button" onclick="cadastrarDisciplina()">Cadastrar</button>
+                <button type="button" id="buttonListar" onclick="listarDisciplinas()">Listar</button>
             </form>
+
+            
         </div>
+        <table id = "tabela" >
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Carga Horária</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaDisciplinas">
+                <!-- Os dados serão inseridos aqui dinamicamente -->
+            </tbody>
+        </table>
+        
+        </table>
+    </div>
 
 </body>
 

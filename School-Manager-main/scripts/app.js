@@ -335,10 +335,10 @@ app.delete('/turmas/:id', async (req, res) => {
 // Rota para cadastrar disciplina
 app.post('/disciplinas', async (req, res) => {
     try {
-        const { nome } = req.body;
+        const { nome, carga_horaria } = req.body;    
         const result = await pool.query(
-            'INSERT INTO disciplinas (nome) VALUES ($1) RETURNING *',
-            [nome]
+            'INSERT INTO disciplinas (nome, carga_horaria) VALUES ($1, $2) RETURNING *', 
+            [nome, carga_horaria] 
         );
         res.json(result.rows[0]);
     } catch (error) {
@@ -358,6 +358,30 @@ app.get('/disciplinas', async (req, res) => {
         res.status(500).send('Erro interno no servidor');
     }
 });
+// Rota para deletar uma disciplina
+app.delete('/disciplinas/:id', async (req, res) => {
+    try {
+        const disciplinaId = req.params.id;
+
+        // Exclua as notas relacionadas à disciplina
+        await pool.query(
+            'DELETE FROM notas WHERE disciplina_id = $1',
+            [disciplinaId]
+        );
+
+        // Agora, exclua a disciplina
+        const result = await pool.query(
+            'DELETE FROM disciplinas WHERE disciplina_id = $1 RETURNING *',
+            [disciplinaId]
+        );
+
+        res.json({ mensagem: 'Disciplina deletada com sucesso' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro interno no servidor');
+    }
+});
+
 
 /////////////////////////////////////////////////////////////////////
 
@@ -718,7 +742,18 @@ app.post('/eventos', async (req, res) => {
             'INSERT INTO eventos (titulo, descricao, data_inicio, data_fim) VALUES ($1, $2, $3, $4) RETURNING *',
             [titulo, descricao, data_inicio, data_fim]
         );
-        res.json(result.rows[0]);
+        const dataInicio = new Date(result.rows[0].data_inicio);
+        const dataInicioForm = dataInicio.toLocaleDateString('pt-BR'); // Altere para o formato desejado
+        const dataFim = new Date(result.rows[0].data_fim);  
+        const dataFimForm = dataFim.toLocaleDateString('pt-BR'); // Altere para o formato desejado
+        res.json({
+            evento_id: result.rows[0].evento_id,
+            titulo: result.rows[0].titulo,
+            descricao: result.rows[0].descricao,
+            data_inicio: dataInicioForm,
+            data_fim: dataFimForm,
+            
+        });
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
@@ -729,10 +764,22 @@ app.post('/eventos', async (req, res) => {
 app.get('/eventos', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM eventos');
-        res.json(result.rows);
+            const eventosFormatados = result.rows.map(eventos => {
+            const dataInicio = new Date(eventos.data_inicio);
+            const dataFim = new Date(eventos.data_fim);
+            return {
+                evento_id: eventos.evento_id, 
+                titulo: eventos.titulo,
+                descricao: eventos.descricao,
+                data_fim: dataFim.toLocaleDateString('pt-BR'),
+                data_inicio: dataInicio.toLocaleDateString('pt-BR'), // Altere para o formato desejado
+            };
+        });
+
+        res.json(eventosFormatados);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Erro interno no servidor');
+        res.status(500).json({ error: error.message }); 
     }
 });
 
