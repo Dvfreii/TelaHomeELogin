@@ -1,31 +1,17 @@
+/* style.css */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-
-#menu {
-    width: 200px;
-    background-color: #7FCEF8;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding-top: 20px;
-    color: white;
-}
-
-#menu img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-#menu a {
-    text-decoration: none;
-    color: black;
-    padding: 10px;
-    display: block;
+#calendar {
+  width: 70%;
+  height: 90vh;
+  margin-left:  320px;
+  padding: 0 ;
+  margin-top: 50px;
+  
+  
 }
 
 #menu button {
@@ -49,66 +35,177 @@ body {
 }
 
 #conteudo {
-    margin-left: 200px;
-    padding: 16px;
-    width: calc(100% - 200px);
+  margin-left: 300px;
+  padding: 16px;
+  width: calc(88% - 85px);
 }
 
 #formulario {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 form {
-    text-align: left;
+  text-align: left;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+select{
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+
 }
 
-button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
+button,
+#buttonListar {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 #buttonListar {
-    background-color: #3498db;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    float: right;
+  float: right;
 }
 
 #tabela {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-#tabela th, #tabela td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+#tabela th,
+#tabela td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 #tabela th {
-    background-color: #3498db;
-    color: white;
+  background-color: #3498db;
+  color: white;
 }
+
+/* Responsividade */
+@media screen and (max-width: 1095px) {
+  #conteudo {
+    margin-left: 0;
+    width: 100%;
+    padding: 16px;
+  }
+
+  #formulario {
+    margin: 20px auto;
+    padding: 15px;
+  }
+  #calendar {
+    width: 60%;
+    height: 70vh;
+    margin-left: calc(50% - 25vw);
+    padding: 0 ;
+    
+    
+  }
+
+  #tabela {
+    overflow-x: auto;
+    display: block;
+    margin-left: calc(50% - 25vw);
+    th,
+    td {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background-color: #3498db;
+      color: white;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #conteudo {
+    padding: 12px;
+  }
+
+  #formulario {
+    padding: 10px;
+  }
+
+  #tabela {
+    overflow-x: auto;
+    display: block;
+    margin-left: calc(100% - 86vw);
+    th,
+    td {
+      white-space: nowrap;
+      min-width: 120px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background-color: #3498db;
+      color: white;
+    }
+  }
+}
+
+@media screen and (max-width: 599px) {
+  #conteudo {
+    padding: 8px;
+    margin-left: 25px;
+  }
+
+  #tabela {
+    overflow-x: auto;
+    display: block;
+    margin-left: 40px; /* Ajuste na margem para um recuo mais sutil */
+    width: 80%; /* Redução da largura da tabela */
+    max-height: 200px; /* Redução da altura máxima da tabela */
+    th,
+    td {
+      white-space: nowrap;
+      min-width: 60px; /* Redução do tamanho mínimo */
+      max-width: 80px; /* Redução do tamanho máximo */
+      font-size: 0.6em; /* Redução adicional do tamanho da fonte */
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background-color: #3498db;
+      color: white;
+    }
+  }
+}
+
+
+textarea {
+  resize: none;
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+}
+

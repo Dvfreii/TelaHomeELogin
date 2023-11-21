@@ -8,6 +8,11 @@ CREATE TABLE alunos (
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL
 );
+CREATE TABLE disciplinas (
+    disciplina_id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    carga_horaria INTEGER NOT NULL
+);
 
 CREATE TABLE professores (
     professor_id SERIAL PRIMARY KEY,
@@ -21,11 +26,6 @@ CREATE TABLE professores (
     senha VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE disciplinas (
-    disciplina_id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    carga_horaria INTEGER NOT NULL
-);
 
 CREATE TABLE turmas (
     turma_id SERIAL PRIMARY KEY,
@@ -54,8 +54,8 @@ CREATE TABLE eventos (
     evento_id SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
-    data_inicio TIMESTAMP NOT NULL,
-    data_fim TIMESTAMP NOT NULL
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL
 );
 
 CREATE TABLE aulas (

@@ -10,7 +10,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     port: 5432, // Porta padrão do PostgreSQL
-    password: '2002' // Aqui coloca a senha que você cadastrou quando instalou o postgres
+    password: '1234' // Aqui coloca a senha que você cadastrou quando instalou o postgres
 });
 
 app.use(bodyParser.json());
@@ -81,28 +81,86 @@ app.get('/alunos', async (req, res) => {
 });
 
 
-// Rota para mostrar um aluno por ID
+// Rota para mostrar um aluno por ID com notas e faltas
 app.get('/alunos/:id', async (req, res) => {
     try {
         const alunoId = req.params.id;
-<<<<<<< Updated upstream
-        const result = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [alunoId]);
-=======
-
+        
         // Consulta para obter informações do aluno
         const alunoQuery = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [alunoId]);
->>>>>>> Stashed changes
 
-        if (result.rows.length === 0) {
+        if (alunoQuery.rows.length === 0) {
             res.status(404).send('Aluno não encontrado');
-        } else {
-            res.json(result.rows[0]);
-        }disciplina
+            return;
+        }
+
+        const aluno = alunoQuery.rows[0];
+
+        // Obter notas do aluno com o nome da disciplina
+        const notasQuery = await pool.query(`
+            SELECT n.nota, d.nome AS disciplina
+            FROM notas n
+            JOIN disciplinas d ON n.disciplina_id = d.disciplina_id
+            WHERE n.aluno_id = $1
+        `, [alunoId]);
+
+        const notasPorDisciplina = {};
+
+        // Loop para agrupar as notas por disciplina
+        notasQuery.rows.forEach(nota => {
+            if (!notasPorDisciplina[nota.disciplina]) {
+                notasPorDisciplina[nota.disciplina] = [];
+            }
+            notasPorDisciplina[nota.disciplina].push(parseFloat(nota.nota)); // Converte a nota para número
+        });
+
+        // Calcula a média para cada disciplina
+        const mediasPorDisciplina = {};
+        for (const disciplina in notasPorDisciplina) {
+            const notas = notasPorDisciplina[disciplina];
+            const media = notas.reduce((acc, nota) => acc + nota, 0) / notas.length;
+            mediasPorDisciplina[disciplina] = media.toFixed(2); // Limita a média a duas casas decimais
+        }
+
+        // Obter faltas
+        const faltasQuery = await pool.query(`
+            SELECT d.nome, COUNT(*) AS faltas
+            FROM presencas p
+            JOIN aulas a ON p.aula_id = a.aula_id
+            JOIN turmas t ON a.turma_id = t.turma_id
+            JOIN disciplinas d ON t.disciplina_id = d.disciplina_id
+            WHERE p.aluno_id = $1 AND p.presenca = false
+            GROUP BY d.disciplina_id
+        `, [alunoId]);
+
+        const faltas = {};
+        console.log(notasPorDisciplina);
+        console.log(mediasPorDisciplina);
+        faltasQuery.rows.forEach(falta => {
+            faltas[falta.nome] = falta.faltas;
+        });
+
+        // Combinar todas as informações
+        const alunoDetalhes = {
+            aluno_id: aluno.aluno_id,
+            nome: aluno.nome,
+            endereco: aluno.endereco,
+            telefone: aluno.telefone,
+            email: aluno.email,
+            senha: aluno.senha,
+            data_nascimento: aluno.data_nascimento,
+            notasPorDisciplina,
+            mediasPorDisciplina,
+            faltas,
+        };
+
+        res.json(alunoDetalhes);
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
     }
 });
+
 
 // Rota para atualizar um aluno existente
 app.put('/alunos/:id', async (req, res) => {
@@ -152,10 +210,7 @@ app.post('/professores', async (req, res) => {
             'INSERT INTO professores (nome, data_nascimento, foto, siape, endereco, telefone, email, senha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
             [nome, data_nascimento, foto, siape, endereco, telefone, email, senha]
         );
-<<<<<<< Updated upstream
-        res.json(result.rows[0]);
-=======
-
+        
         const dataNascimento = new Date(result.rows[0].data_nascimento);
         const dataNascimentoFormatada = dataNascimento.toLocaleDateString('pt-BR');
 
@@ -169,18 +224,32 @@ app.post('/professores', async (req, res) => {
             senha: result.rows[0].senha,
             data_nascimento: dataNascimentoFormatada,
         });
->>>>>>> Stashed changes
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
     }
 });
 
+
 // Rota para mostrar todos os professores
 app.get('/professores', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM professores');
-        res.json(result.rows);
+        const professoresFormatados = result.rows.map(professor => {
+            const dataNascimento = new Date(professor.data_nascimento);
+            return {
+                professor_id: professor.professor_id,
+                nome: professor.nome,
+                siape: professor.siape,
+                endereco: professor.endereco,
+                telefone: professor.telefone,
+                email: professor.email,
+                senha: professor.senha,
+                data_nascimento: dataNascimento.toLocaleDateString('pt-BR'), // Altere para o formato desejado
+            };
+        });
+
+        res.json(professoresFormatados);
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
@@ -330,17 +399,10 @@ app.delete('/turmas/:id', async (req, res) => {
 // Rota para cadastrar disciplina
 app.post('/disciplinas', async (req, res) => {
     try {
-<<<<<<< Updated upstream
-        const { nome } = req.body;
+        const { nome, carga_horaria } = req.body;    
         const result = await pool.query(
-            'INSERT INTO disciplinas (nome) VALUES ($1) RETURNING *',
-            [nome]
-=======
-        const { nome, carga_horaria } = req.body;
-        const result = await pool.query(
-            'INSERT INTO disciplinas (nome, carga_horaria) VALUES ($1, $2) RETURNING *',
-            [nome, carga_horaria]
->>>>>>> Stashed changes
+            'INSERT INTO disciplinas (nome, carga_horaria) VALUES ($1, $2) RETURNING *', 
+            [nome, carga_horaria] 
         );
         res.json(result.rows[0]);
     } catch (error) {
@@ -360,6 +422,30 @@ app.get('/disciplinas', async (req, res) => {
         res.status(500).send('Erro interno no servidor');
     }
 });
+// Rota para deletar uma disciplina
+app.delete('/disciplinas/:id', async (req, res) => {
+    try {
+        const disciplinaId = req.params.id;
+
+        // Exclua as notas relacionadas à disciplina
+        await pool.query(
+            'DELETE FROM notas WHERE disciplina_id = $1',
+            [disciplinaId]
+        );
+
+        // Agora, exclua a disciplina
+        const result = await pool.query(
+            'DELETE FROM disciplinas WHERE disciplina_id = $1 RETURNING *',
+            [disciplinaId]
+        );
+
+        res.json({ mensagem: 'Disciplina deletada com sucesso' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro interno no servidor');
+    }
+});
+
 
 /////////////////////////////////////////////////////////////////////
 
@@ -720,12 +806,9 @@ app.post('/eventos', async (req, res) => {
             'INSERT INTO eventos (titulo, descricao, data_inicio, data_fim) VALUES ($1, $2, $3, $4) RETURNING *',
             [titulo, descricao, data_inicio, data_fim]
         );
-<<<<<<< Updated upstream
-        res.json(result.rows[0]);
-=======
         const dataInicio = new Date(result.rows[0].data_inicio);
         const dataInicioForm = dataInicio.toLocaleDateString('pt-BR'); // Altere para o formato desejado
-        const dataFim = new Date(result.rows[0].data_fim);
+        const dataFim = new Date(result.rows[0].data_fim);  
         const dataFimForm = dataFim.toLocaleDateString('pt-BR'); // Altere para o formato desejado
         res.json({
             evento_id: result.rows[0].evento_id,
@@ -733,9 +816,8 @@ app.post('/eventos', async (req, res) => {
             descricao: result.rows[0].descricao,
             data_inicio: dataInicioForm,
             data_fim: dataFimForm,
-
+            
         });
->>>>>>> Stashed changes
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
@@ -746,17 +828,11 @@ app.post('/eventos', async (req, res) => {
 app.get('/eventos', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM eventos');
-<<<<<<< Updated upstream
-        res.json(result.rows);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro interno no servidor');
-=======
-        const eventosFormatados = result.rows.map(eventos => {
+            const eventosFormatados = result.rows.map(eventos => {
             const dataInicio = new Date(eventos.data_inicio);
             const dataFim = new Date(eventos.data_fim);
             return {
-                evento_id: eventos.evento_id,
+                evento_id: eventos.evento_id, 
                 titulo: eventos.titulo,
                 descricao: eventos.descricao,
                 data_fim: dataFim.toLocaleDateString('pt-BR'),
@@ -767,8 +843,7 @@ app.get('/eventos', async (req, res) => {
         res.json(eventosFormatados);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: error.message });
->>>>>>> Stashed changes
+        res.status(500).json({ error: error.message }); 
     }
 });
 
