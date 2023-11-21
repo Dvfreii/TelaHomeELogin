@@ -49,7 +49,7 @@ ul li.item-menu a{
     font-size: 20px;
     padding: 20px 4%;
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     line-height: 40px;
 }
 ul li.item-menu:hover{
@@ -103,7 +103,7 @@ ul li.item-menu a .icon{
     ul li.item-menu a {
       font-size: 16px;
       padding: 16px 4%;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       line-height: 32px;
     }
   
@@ -154,7 +154,7 @@ ul li.item-menu a .icon{
     ul li.item-menu a {
       font-size: 14px;
       padding: 12px 4%;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 24px;
       justify-content: center;
     }
