@@ -210,9 +210,9 @@ app.post('/professores', async (req, res) => {
             'INSERT INTO professores (nome, data_nascimento, foto, siape, endereco, telefone, email, senha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
             [nome, data_nascimento, foto, siape, endereco, telefone, email, senha]
         );
-        res.json(result.rows[0]);
+        
         const dataNascimento = new Date(result.rows[0].data_nascimento);
-        const dataNascimentoFormatada = dataNascimento.toLocaleDateString('pt-BR'); // Altere para o formato desejado
+        const dataNascimentoFormatada = dataNascimento.toLocaleDateString('pt-BR');
 
         res.json({
             professor_id: result.rows[0].professor_id,
@@ -224,12 +224,12 @@ app.post('/professores', async (req, res) => {
             senha: result.rows[0].senha,
             data_nascimento: dataNascimentoFormatada,
         });
-
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
     }
 });
+
 
 // Rota para mostrar todos os professores
 app.get('/professores', async (req, res) => {
