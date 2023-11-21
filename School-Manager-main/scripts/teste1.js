@@ -17,7 +17,9 @@ function carregarCalendario() {
         events: function(fetchInfo, successCallback, failureCallback) {
             carregarEventos()
                 .then(eventos => {
+                    console.log('Eventos:', eventos)
                     const eventosTransformados = transformarFormato(eventos);
+                    console.log('Eventos carregados:', eventosTransformados)
                     successCallback(eventosTransformados);
                 })
                 .catch(error => {
@@ -45,8 +47,16 @@ function transformarFormato(eventos) {
             id: evento.id,
             title: evento.titulo,
             description: evento.descricao,
-            start: new Date(evento.data_inicio).toISOString().split('T')[0], // Formatação da data de início
-            end: new Date(evento.data_fim).toISOString().split('T')[0], // Formatação da data de fim
+            start: FormataStringData(evento.data_inicio), // Formatação da data de início
+            end: FormataStringData(evento.data_fim), // Formatação da data de fim
         };
     });
+}
+
+function FormataStringData(data) {
+    var dia  = data.split("/")[0];
+    var mes  = data.split("/")[1];
+    var ano  = data.split("/")[2];
+
+    return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
 }
