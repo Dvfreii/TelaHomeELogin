@@ -218,6 +218,8 @@ function listarEventos() {
         console.error('Erro ao obter a lista de eventos:', error);
     });
 }
+
+
 function deletarEvento(eventoId) {
     // Solicitação para deletar o aluno
     fetch(`http://localhost:3000/eventos/${eventoId}`, {
@@ -298,3 +300,5 @@ function deletarDisciplina(disciplinaId) {
         console.error('Erro ao deletar disciplina:', error);
     });
 }
+
+
