@@ -4,7 +4,14 @@ body {
   margin: 0;
   padding: 0;
 }
-
+#calendar {
+  width: 70%;
+  height: 90vh;
+  margin: 0px 320px;
+  padding: 0 ;
+  
+  
+}
 
 #conteudo {
   margin-left: 300px;
@@ -80,6 +87,14 @@ button,
   #formulario {
     margin: 20px auto;
     padding: 15px;
+  }
+  #calendar {
+    width: 60%;
+    height: 70vh;
+    margin-left: calc(50% - 25vw);
+    padding: 0 ;
+    
+    
   }
 
   #tabela {
