@@ -16,10 +16,10 @@ const pool = new Pool({
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 });
 
 /////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@ app.post('/alunos', async (req, res) => {
 app.get('/alunos', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM alunos');
-        
+
         // Ajustar o formato da data de nascimento para cada aluno
         const alunosFormatados = result.rows.map(aluno => {
             const dataNascimento = new Date(aluno.data_nascimento);
@@ -85,7 +85,13 @@ app.get('/alunos', async (req, res) => {
 app.get('/alunos/:id', async (req, res) => {
     try {
         const alunoId = req.params.id;
+<<<<<<< Updated upstream
         const result = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [alunoId]);
+=======
+
+        // Consulta para obter informações do aluno
+        const alunoQuery = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [alunoId]);
+>>>>>>> Stashed changes
 
         if (result.rows.length === 0) {
             res.status(404).send('Aluno não encontrado');
@@ -146,7 +152,24 @@ app.post('/professores', async (req, res) => {
             'INSERT INTO professores (nome, data_nascimento, foto, siape, endereco, telefone, email, senha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
             [nome, data_nascimento, foto, siape, endereco, telefone, email, senha]
         );
+<<<<<<< Updated upstream
         res.json(result.rows[0]);
+=======
+
+        const dataNascimento = new Date(result.rows[0].data_nascimento);
+        const dataNascimentoFormatada = dataNascimento.toLocaleDateString('pt-BR');
+
+        res.json({
+            professor_id: result.rows[0].professor_id,
+            nome: result.rows[0].nome,
+            siape: result.rows[0].siape,
+            endereco: result.rows[0].endereco,
+            telefone: result.rows[0].telefone,
+            email: result.rows[0].email,
+            senha: result.rows[0].senha,
+            data_nascimento: dataNascimentoFormatada,
+        });
+>>>>>>> Stashed changes
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
@@ -307,10 +330,17 @@ app.delete('/turmas/:id', async (req, res) => {
 // Rota para cadastrar disciplina
 app.post('/disciplinas', async (req, res) => {
     try {
+<<<<<<< Updated upstream
         const { nome } = req.body;
         const result = await pool.query(
             'INSERT INTO disciplinas (nome) VALUES ($1) RETURNING *',
             [nome]
+=======
+        const { nome, carga_horaria } = req.body;
+        const result = await pool.query(
+            'INSERT INTO disciplinas (nome, carga_horaria) VALUES ($1, $2) RETURNING *',
+            [nome, carga_horaria]
+>>>>>>> Stashed changes
         );
         res.json(result.rows[0]);
     } catch (error) {
@@ -595,7 +625,7 @@ app.get('/media/:aluno_id/:disciplina_id', async (req, res) => {
 app.post('/presenca', async (req, res) => {
     try {
         const { aluno_id, aula_id, presenca, justificativa } = req.body;
-        
+
         // Verifica se o aluno e a aula existem antes de registrar a presença
         const alunoExists = await pool.query('SELECT * FROM alunos WHERE aluno_id = $1', [aluno_id]);
         const aulaExists = await pool.query('SELECT * FROM aulas WHERE aula_id = $1', [aula_id]);
@@ -609,7 +639,7 @@ app.post('/presenca', async (req, res) => {
             'INSERT INTO presencas (aluno_id, aula_id, presenca, justificativa) VALUES ($1, $2, $3, $4) RETURNING *',
             [aluno_id, aula_id, presenca, justificativa]
         );
-        
+
         res.json(result.rows[0]);
     } catch (error) {
         console.error(error);
@@ -690,7 +720,22 @@ app.post('/eventos', async (req, res) => {
             'INSERT INTO eventos (titulo, descricao, data_inicio, data_fim) VALUES ($1, $2, $3, $4) RETURNING *',
             [titulo, descricao, data_inicio, data_fim]
         );
+<<<<<<< Updated upstream
         res.json(result.rows[0]);
+=======
+        const dataInicio = new Date(result.rows[0].data_inicio);
+        const dataInicioForm = dataInicio.toLocaleDateString('pt-BR'); // Altere para o formato desejado
+        const dataFim = new Date(result.rows[0].data_fim);
+        const dataFimForm = dataFim.toLocaleDateString('pt-BR'); // Altere para o formato desejado
+        res.json({
+            evento_id: result.rows[0].evento_id,
+            titulo: result.rows[0].titulo,
+            descricao: result.rows[0].descricao,
+            data_inicio: dataInicioForm,
+            data_fim: dataFimForm,
+
+        });
+>>>>>>> Stashed changes
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
@@ -701,10 +746,29 @@ app.post('/eventos', async (req, res) => {
 app.get('/eventos', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM eventos');
+<<<<<<< Updated upstream
         res.json(result.rows);
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro interno no servidor');
+=======
+        const eventosFormatados = result.rows.map(eventos => {
+            const dataInicio = new Date(eventos.data_inicio);
+            const dataFim = new Date(eventos.data_fim);
+            return {
+                evento_id: eventos.evento_id,
+                titulo: eventos.titulo,
+                descricao: eventos.descricao,
+                data_fim: dataFim.toLocaleDateString('pt-BR'),
+                data_inicio: dataInicio.toLocaleDateString('pt-BR'), // Altere para o formato desejado
+            };
+        });
+
+        res.json(eventosFormatados);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+>>>>>>> Stashed changes
     }
 });
 
