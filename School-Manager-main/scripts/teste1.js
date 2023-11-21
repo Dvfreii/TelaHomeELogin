@@ -8,7 +8,7 @@ function carregarCalendario() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
-        timeZone: 'UTC',
+        timeZone: 'UTC-3',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
