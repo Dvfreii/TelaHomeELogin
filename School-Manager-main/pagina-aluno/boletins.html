@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>Boletins</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="shortcut icon" type="imagex/png" href="../imgs/img.ico">
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../scripts/nav.js"></script>
+</head>
+<header>
+    <nav class="menu-lateral">
+        <div >
+            <img id="logo-nav" src="../imgs/GESTÃO-removebg-preview.png" alt="">
+        </div>
+        <ul>
+            <li class="item-menu">
+                <a href="../pagina-aluno/index.html">
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                    </svg></span>
+                    <span class="txt">Home</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="../pagina-aluno/eventos.html">
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
+                        <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                      </svg></span>
+                    
+                    <span class="txt">Eventos</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="../pagina-aluno/boletins.html">
+                    <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+                        <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5Z"/>
+                        <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Z"/>
+                      </svg></span>
+                    
+                    <span class="txt">Boletins</span>
+                </a>
+            </li>
+            
+        </ul>
+
+    </nav>
+
+</header>
+<body>
+
+    <div id="conteudo">
+
+        <h1 id="tituloPagina">Boletins</h1>
+    
+        <table id="tabela" class="tabelaAlunos">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Endereço</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Data de Nascimento</th>
+                </tr>
+            </thead>
+            <tbody id="listaAlunos">
+                <!-- Os alunos serão adicionados dinamicamente aqui -->
+            </tbody>
+        </table>
+    
+        <div id="detalhesAluno">
+        </div>
+    
+        <script>
+            function formatarData(data) {
+                if (!data) {
+                    return '';  // Retorna uma string vazia se a data for indefinida ou nula
+                }
+        
+                const dataObj = new Date(data);
+                if (isNaN(dataObj.getTime())) {
+                    return data;  // Retorna a data original se não for possível converter para um objeto de data
+                }
+        
+                const dia = String(dataObj.getDate()).padStart(2, '0');
+                const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+                const ano = dataObj.getFullYear();
+                return `${dia}/${mes}/${ano}`;
+            }
+        
+            // Vamos usar jQuery para fazer a requisição AJAX
+            const apiUrl = 'http://localhost:3000/alunos';
+        
+            function mostrarAlunos() {
+                $('#tituloPagina').show();
+                $('.tabelaAlunos').show();
+                $('#detalhesAluno').html('');
+            }
+        
+            $.get(apiUrl, function (alunos) {
+                const listaAlunos = $('#listaAlunos');
+        
+                // Iterar sobre a lista de alunos e adicionar linhas à tabela
+                alunos.forEach(aluno => {
+                    const alunoRow = `
+                        <tr>
+                            <td><a href="#" data-aluno-id="${aluno.aluno_id}">${aluno.nome}</a></td>
+                            <td>${aluno.endereco}</td>
+                            <td>${aluno.telefone}</td>
+                            <td>${aluno.email}</td>
+                            <td>${formatarData(aluno.data_nascimento)}</td>
+                        </tr>
+                    `;
+                    listaAlunos.append(alunoRow);
+                });
+        
+                $('a[data-aluno-id]').click(function () {
+                    const alunoId = $(this).data('aluno-id');
+                    const detalhesAluno = $('#detalhesAluno');
+                    const detalhesUrl = `http://localhost:3000/alunos/${alunoId}`;
+        
+                    // Fazer uma nova requisição para obter os detalhes do aluno
+                    $.get(detalhesUrl, function (data) {
+                        $('.tabelaAlunos').hide();
+                        $('#tituloPagina').hide();
+                        detalhesAluno.html(
+                            `<button onclick="mostrarAlunos()">Voltar</button>
+                            <div class="container mt-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h1>Detalhes do Aluno</h1>
+                                        <table id="tabela">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col">Nome</th>
+                                                    <td>${data.nome}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Endereço</th>
+                                                    <td>${data.endereco}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Telefone</th>
+                                                    <td>${data.telefone}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Email</th>
+                                                    <td>${data.email}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Data de Nascimento</th>
+                                                    <td>${formatarData(data.data_nascimento)}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <h2>Notas, Médias e Faltas por Disciplina</h2>
+                                        <table id="tabela">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Disciplina</th>
+                                                    <th scope="col">Notas</th>
+                                                    <th scope="col">Média</th>
+                                                    <th scope="col">Faltas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${Object.keys(data.notasPorDisciplina).map(disciplina => `
+                                                    <tr>
+                                                        <td scope="row">${disciplina}</th>
+                                                        <td>${data.notasPorDisciplina[disciplina].join(' | ')}</td>
+                                                        <td>${data.mediasPorDisciplina[disciplina]}</td>
+                                                        <td>${data.faltas[disciplina] || 0}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>`
+                        );
+                    });
+                });
+            });
+        </script>
+        
+    </div>
+
+</body>
+
+</html>

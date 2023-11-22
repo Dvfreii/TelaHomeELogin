@@ -54,8 +54,8 @@ CREATE TABLE eventos (
     evento_id SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
-    data_inicio TIMESTAMP NOT NULL,
-    data_fim TIMESTAMP NOT NULL
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL
 );
 
 CREATE TABLE aulas (
