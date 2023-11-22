@@ -98,24 +98,45 @@
     </header>
 
     <div id="conteudo">
-        <div id="formulario">
-            <h2>Cadastro de Turma</h2>
-            <form id="form">
-                <label for="numero">Número da sala:</label>
-                <input type="numero" id="numero " required>
+            <div id="formulario">
+                <h2>Cadastro de Turma</h2>
+                <form id="formAluno">
+                    <label for="disciplinaSelect">Disciplina:</label>
+                    <select id="disciplinaSelect" required>
+                        <!-- Opções das disciplinas serão inseridas aqui -->
+                    </select>
+        
+                    <label for="horario">Horário:</label>
+                    <input type="text" id="horario" required>
+        
+                    <label for="sala_aula">Número da Sala:</label>
+                    <input type="text" id="sala_aula" required>
+        
+                    <label for="professorSelect">Professor:</label>
+                    <select id="professorSelect" required></select>
+        
+                    <button type="button" onclick="cadastrarTurma()">Cadastrar</button>
+                    <button type="button" id="buttonListar" onclick="listarTurmas()">Listar</button>
+                </form>
+            </div>
+        
+        
 
-                <label for="disciplinas">Disciplinas:</label>
-                <input type="disciplinas" id="disciplinas" required>
-
-                <label for="horarioDisciplina">Horários das disciplinas:</label>
-                <input type="horarioDisciplina" id="horarioDisciplina" required>
-
-                <button type="button" onclick="criarAluno()">Cadastrar</button>
-                <button type="button" id="buttonListar" onclick="listarAlunos()">Listar</button>
-            </form>
-        </div>
-    </div>
-
+        <table id="tabela">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Disciplina ID</th>
+                    <th>Horário</th>
+                    <th>Número da Sala</th>
+                    <th>Professor ID</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaTurmas">
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

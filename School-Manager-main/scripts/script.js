@@ -445,9 +445,8 @@ function listarTurmas() {
                 <td>${turma.horario}</td>
                 <td>${turma.sala_aula}</td>
                 <td>${turma.professor_id}</td>
-                
-                <td><button onclick="listarAlunosTurma(${turma.turma_id})">Listar Alunos</button>
-                <button onclick="deletarTurma(${turma.turma_id})">Deletar</button></td>
+                <td><button onclick="listarAlunosTurma(${turma.turma_id})">Listar Alunos</button></td>
+                <td><button onclick="deletarTurma(${turma.turma_id})">Deletar</button></td>
             `;
                 document.getElementById('tabelaTurmas').appendChild(row);
             });
@@ -521,7 +520,6 @@ document.addEventListener('DOMContentLoaded', function() {
     listarDisciplinasturma();
     listarProfessorturma();
     listarTurmas();
-    listarProfessores();
 });
 
 
