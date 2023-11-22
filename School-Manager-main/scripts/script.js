@@ -206,6 +206,7 @@ function criarProfessor() {
     .catch(error => {
         console.error('Erro ao criar aluno:', error);
     });
+    
 }
 
 function listarProfessores() {
@@ -282,6 +283,7 @@ function cadastrarEvento() {
     .catch(error => {
         console.error('Erro ao criar evento:', error);
     });
+    listarEventos();
 }
 
 function listarEventos() {
@@ -355,6 +357,7 @@ function cadastrarDisciplina(){
     .catch(error => {
         console.error('Erro ao criar Disciplina:', error);
     });
+    listarDisciplinas();
 }
 function listarDisciplinas() {
     document.getElementById('tabelaDisciplinas').innerHTML = '';
@@ -390,5 +393,138 @@ function deletarDisciplina(disciplinaId) {
         console.error('Erro ao deletar disciplina:', error);
     });
 }
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
+function cadastrarTurma() {
+    const disciplina_id = document.getElementById('disciplinaSelect').value;
+    const horario = document.getElementById('horario').value;
+    const sala_aula = document.getElementById('sala_aula').value;
+    const professor_id = document.getElementById('professorSelect').value;
+
+    if (!disciplina_id || !horario || !sala_aula || !professor_id) {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    const dadosTurma = {
+        disciplina_id: disciplina_id,
+        horario: horario,
+        sala_aula: sala_aula,
+        professor_id: professor_id,
+    };
+
+    fetch('http://localhost:3000/turmas', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dadosTurma),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Turma cadastrada com sucesso:', data);
+            listarTurmas(); // Atualizar a lista após o cadastro
+        })
+        .catch(error => {
+            console.error('Erro ao cadastrar turma:', error);
+        });
+}
+
+
+function listarTurmas() {
+    document.getElementById('tabelaTurmas').innerHTML = '';
+
+    fetch('http://localhost:3000/turmas')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(turma => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${turma.turma_id}</td>
+                <td>${turma.disciplina_id}</td>
+                <td>${turma.horario}</td>
+                <td>${turma.sala_aula}</td>
+                <td>${turma.professor_id}</td>
+                
+                <td><button onclick="listarAlunosTurma(${turma.turma_id})">Listar Alunos</button>
+                <button onclick="deletarTurma(${turma.turma_id})">Deletar</button></td>
+            `;
+                document.getElementById('tabelaTurmas').appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao obter a lista de turmas:', error);
+        });
+}
+
+function listarAlunosTurma(turmaId) {
+    fetch('http://localhost:3000/turmas/${turmaId}/alunos')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Alunos da turma:', data);
+            // Aqui você pode fazer o que quiser com a lista de alunos da turma
+        })
+        .catch(error => {
+            console.error('Erro ao obter a lista de alunos da turma:', error);
+        });
+}
+
+function deletarTurma(turmaId) {
+    fetch(`http://localhost:3000/turmas/${turmaId}`, {
+        method: 'DELETE',
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Turma deletada com sucesso:', data);
+            listarTurmas(); // Atualizar a lista após a exclusão
+        })
+        .catch(error => {
+            console.error('Erro ao deletar turma:', error);
+        });
+}
+function listarDisciplinasturma() {
+    fetch('http://localhost:3000/disciplinas')
+        .then(response => response.json())
+        .then(data => {
+            const disciplinaSelect = document.getElementById('disciplinaSelect');
+
+            data.forEach(disciplina => {
+                const option = document.createElement('option');
+                option.value = disciplina.disciplina_id;
+                option.textContent = disciplina.nome;
+                disciplinaSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao listar disciplinas:', error);
+        });
+}
+function listarProfessorturma() {
+    fetch('http://localhost:3000/professores')
+        .then(response => response.json())
+        .then(data => {
+            const professorSelect = document.getElementById('professorSelect');
+
+            data.forEach(professor => {
+                const option = document.createElement('option');
+                option.value = professor.professor_id;
+                option.textContent = professor.nome;
+                professorSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao listar Professores:', error);
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    listarDisciplinasturma();
+    listarProfessorturma();
+    listarTurmas();
+    listarProfessores();
+});
+
+
+
 
 
