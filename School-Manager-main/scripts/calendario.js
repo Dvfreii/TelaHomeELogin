@@ -9,6 +9,7 @@ function carregarCalendario() {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
         timeZone: 'UTC-3',
+        editable: true,
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
@@ -17,16 +18,18 @@ function carregarCalendario() {
         events: function(fetchInfo, successCallback, failureCallback) {
             carregarEventos()
                 .then(eventos => {
-                    console.log('Eventos:', eventos)
                     const eventosTransformados = transformarFormato(eventos);
-                    console.log('Eventos carregados:', eventosTransformados)
                     successCallback(eventosTransformados);
                 })
                 .catch(error => {
                     console.error('Erro ao carregar eventos:', error);
                     failureCallback(error);
                 });
-        }
+        },
+        eventClick: function(info) {
+            console.log('Evento selecionado:', info.event.extendedProps.description);
+            Swal.fire('Descrição: ' + info.event.extendedProps.description);
+        },
     });
 
     calendar.render();
@@ -49,6 +52,9 @@ function transformarFormato(eventos) {
             description: evento.descricao,
             start: FormataStringData(evento.data_inicio), // Formatação da data de início
             end: FormataStringData(evento.data_fim), // Formatação da data de fim
+            extendedProps: {
+                description: evento.descricao,
+            },
         };
     });
 }

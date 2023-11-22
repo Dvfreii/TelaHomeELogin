@@ -4,14 +4,32 @@ body {
   margin: 0;
   padding: 0;
 }
+
 #calendar {
   width: 70%;
   height: 90vh;
-  margin-left:  320px;
-  padding: 0 ;
+  margin-left: 320px;
+  padding: 0;
   margin-top: 50px;
-  
-  
+
+}
+
+#acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+#acoes button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 6vw;
+
 }
 
 #conteudo {
@@ -44,7 +62,8 @@ input {
   margin-bottom: 10px;
   box-sizing: border-box;
 }
-select{
+
+select {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -96,19 +115,21 @@ button,
     margin: 20px auto;
     padding: 15px;
   }
+
   #calendar {
     width: 60%;
     height: 70vh;
     margin-left: calc(50% - 25vw);
-    padding: 0 ;
-    
-    
+    padding: 0;
+
+
   }
 
   #tabela {
     overflow-x: auto;
     display: block;
     margin-left: calc(50% - 25vw);
+
     th,
     td {
       white-space: nowrap;
@@ -137,6 +158,7 @@ button,
     overflow-x: auto;
     display: block;
     margin-left: calc(100% - 86vw);
+
     th,
     td {
       white-space: nowrap;
@@ -161,15 +183,22 @@ button,
   #tabela {
     overflow-x: auto;
     display: block;
-    margin-left: 40px; /* Ajuste na margem para um recuo mais sutil */
-    width: 80%; /* Redução da largura da tabela */
-    max-height: 200px; /* Redução da altura máxima da tabela */
+    margin-left: 40px;
+    /* Ajuste na margem para um recuo mais sutil */
+    width: 80%;
+    /* Redução da largura da tabela */
+    max-height: 200px;
+
+    /* Redução da altura máxima da tabela */
     th,
     td {
       white-space: nowrap;
-      min-width: 60px; /* Redução do tamanho mínimo */
-      max-width: 80px; /* Redução do tamanho máximo */
-      font-size: 0.6em; /* Redução adicional do tamanho da fonte */
+      min-width: 60px;
+      /* Redução do tamanho mínimo */
+      max-width: 80px;
+      /* Redução do tamanho máximo */
+      font-size: 0.6em;
+      /* Redução adicional do tamanho da fonte */
     }
 
     th {
@@ -188,4 +217,3 @@ textarea {
   height: 100px;
   padding: 10px;
 }
-

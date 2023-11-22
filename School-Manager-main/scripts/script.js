@@ -51,7 +51,7 @@ function listarAlunos() {
                 <td>${aluno.email}</td>
                 <td>${aluno.endereco}</td>
                 <td>${aluno.telefone}</td>
-                <td><button onclick="deletarAluno(${aluno.aluno_id})">Deletar</button></td>
+                <td id="acoes"><button onclick="deletarAluno(${aluno.aluno_id})">Deletar</button></td>
             `;
                 document.getElementById('tabelaAlunos').appendChild(row);
             });
@@ -225,7 +225,7 @@ function listarProfessores() {
                 <td>${professor.email}</td>
                 <td>${professor.endereco}</td>
                 <td>${professor.telefone}</td>
-                <td><button onclick="deletarProfessor(${professor.professor_id})">Deletar</button></td>
+                <td id="acoes"><button onclick="deletarProfessor(${professor.professor_id})">Deletar</button></td>
             `;
             document.getElementById('tabelaProfessores').appendChild(row);
         });
@@ -279,12 +279,14 @@ function cadastrarEvento() {
     .then(response => response.json())
     .then(data => {
         console.log('Evento criado com sucesso:', data);
+        listarEventos(); // Lista os eventos após criar com sucesso
     })
     .catch(error => {
         console.error('Erro ao criar evento:', error);
     });
-    listarEventos();
 }
+
+
 
 function listarEventos() {
     // Faz uma requisição GET ao servidor para obter a lista de eventos
@@ -301,14 +303,16 @@ function listarEventos() {
                 <td>${eventos.descricao}</td>
                 <td>${eventos.data_inicio}</td>
                 <td>${eventos.data_fim}</td>
-                <td><button onclick="deletarEvento(${eventos.evento_id})">Deletar</button></td>
+                <td id="acoes"><button onclick="deletarEvento(${eventos.evento_id})">Deletar</button></td>
             `;
             document.getElementById('eventList').appendChild(row);
         });
+        
     })
     .catch(error => {
         console.error('Erro ao obter a lista de eventos:', error);
     });
+    
 }
 
 
@@ -371,7 +375,7 @@ function listarDisciplinas() {
                     <td>${disciplina.disciplina_id}</td>
                     <td>${disciplina.nome}</td>
                     <td>${disciplina.carga_horaria}</td>
-                    <td><button onclick="deletarDisciplina(${disciplina.disciplina_id})">Deletar</button></td>
+                    <td id="acoes"><button onclick="deletarDisciplina(${disciplina.disciplina_id})">Deletar</button></td>
                 `;
                 document.getElementById('tabelaDisciplinas').appendChild(row);
             });
@@ -445,8 +449,9 @@ function listarTurmas() {
                 <td>${turma.horario}</td>
                 <td>${turma.sala_aula}</td>
                 <td>${turma.professor_id}</td>
-                <td><button onclick="listarAlunosTurma(${turma.turma_id})">Listar Alunos</button></td>
-                <td><button onclick="deletarTurma(${turma.turma_id})">Deletar</button></td>
+                
+                <td id="acoes"><button onclick="listarAlunosTurma(${turma.turma_id})">Listar Alunos</button>
+                <button onclick="deletarTurma(${turma.turma_id})">Deletar</button></td>
             `;
                 document.getElementById('tabelaTurmas').appendChild(row);
             });
@@ -520,6 +525,15 @@ document.addEventListener('DOMContentLoaded', function() {
     listarDisciplinasturma();
     listarProfessorturma();
     listarTurmas();
+});
+document.addEventListener('DOMContentLoaded', function() {
+    listarProfessores();
+});
+document.addEventListener('DOMContentLoaded', function() {
+    listarDisciplinas();
+});
+document.addEventListener('DOMContentLoaded', function() {
+    listarAlunos();
 });
 
 
