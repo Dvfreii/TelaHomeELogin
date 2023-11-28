@@ -112,7 +112,7 @@
                 </tr>
             </thead>
             <tbody id="listaAlunos">
-                <!-- Os alunos serão adicionados dinamicamente aqui -->
+                
             </tbody>
         </table>
     
@@ -122,12 +122,12 @@
         <script>
             function formatarData(data) {
                 if (!data) {
-                    return '';  // Retorna uma string vazia se a data for indefinida ou nula
+                    return '';  
                 }
         
                 const dataObj = new Date(data);
                 if (isNaN(dataObj.getTime())) {
-                    return data;  // Retorna a data original se não for possível converter para um objeto de data
+                    return data;  
                 }
         
                 const dia = String(dataObj.getDate()).padStart(2, '0');
@@ -136,7 +136,7 @@
                 return `${dia}/${mes}/${ano}`;
             }
         
-            // Vamos usar jQuery para fazer a requisição AJAX
+            
             const apiUrl = 'http://localhost:3000/alunos';
         
             function mostrarAlunos() {
@@ -148,7 +148,7 @@
             $.get(apiUrl, function (alunos) {
                 const listaAlunos = $('#listaAlunos');
         
-                // Iterar sobre a lista de alunos e adicionar linhas à tabela
+                
                 alunos.forEach(aluno => {
                     const alunoRow = `
                         <tr>
@@ -167,7 +167,7 @@
                     const detalhesAluno = $('#detalhesAluno');
                     const detalhesUrl = `http://localhost:3000/alunos/${alunoId}`;
         
-                    // Fazer uma nova requisição para obter os detalhes do aluno
+                    
                     $.get(detalhesUrl, function (data) {
                         $('.tabelaAlunos').hide();
                         $('#tituloPagina').hide();

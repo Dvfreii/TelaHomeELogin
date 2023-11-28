@@ -33,7 +33,7 @@ app.post('/alunos', async (req, res) => {
             [nome, data_nascimento, foto, endereco, telefone, email, senha]
         );
 
-        // Remover a propriedade "foto" da resposta
+        
         // Ajustar o formato da data de nascimento
         const dataNascimento = new Date(result.rows[0].data_nascimento);
         const dataNascimentoFormatada = dataNascimento.toLocaleDateString('pt-BR'); // Altere para o formato desejado
@@ -49,7 +49,7 @@ app.post('/alunos', async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: error.message }); // Enviar detalhes do erro como resposta
+        res.status(500).json({ error: error.message }); 
     }
 });
 
@@ -69,14 +69,14 @@ app.get('/alunos', async (req, res) => {
                 telefone: aluno.telefone,
                 email: aluno.email,
                 senha: aluno.senha,
-                data_nascimento: dataNascimento.toLocaleDateString('pt-BR'), // Altere para o formato desejado
+                data_nascimento: dataNascimento.toLocaleDateString('pt-BR'), 
             };
         });
 
         res.json(alunosFormatados);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: error.message }); // Enviar detalhes do erro como resposta
+        res.status(500).json({ error: error.message }); 
     }
 });
 
@@ -427,13 +427,13 @@ app.delete('/disciplinas/:id', async (req, res) => {
     try {
         const disciplinaId = req.params.id;
 
-        // Exclua as notas relacionadas à disciplina
+        
         await pool.query(
             'DELETE FROM notas WHERE disciplina_id = $1',
             [disciplinaId]
         );
 
-        // Agora, exclua a disciplina
+        
         const result = await pool.query(
             'DELETE FROM disciplinas WHERE disciplina_id = $1 RETURNING *',
             [disciplinaId]

@@ -62,14 +62,14 @@ function listarAlunos() {
 }
 
 function deletarAluno(alunoId) {
-    // Solicitação para deletar o aluno
+    
     fetch(`http://localhost:3000/alunos/${alunoId}`, {
         method: 'DELETE',
     })
         .then(response => response.json())
         .then(data => {
             console.log('Aluno deletado com sucesso:', data);
-            // Atualize a lista de alunos após a exclusão
+            
             listarAlunos();
         })
         .catch(error => {
@@ -96,7 +96,7 @@ function cadastrarEvento() {
         data_fim: data_fim
     };
 
-    // Envia os dados do evento para o servidor
+    
     fetch('http://localhost:3000/eventos', {
         method: 'POST',
         headers: {
@@ -112,21 +112,21 @@ function cadastrarEvento() {
         })
         .then(data => {
             console.log('Evento cadastrado com sucesso:', data);
-            // Exibir uma mensagem de sucesso na interface do usuário
+            
             exibirMensagem('Evento cadastrado com sucesso!', 'success');
         })
         .catch(error => {
             console.error('Erro ao cadastrar evento:', error);
-            // Exibir uma mensagem de erro na interface do usuário
+            
             exibirMensagem('Erro ao cadastrar evento. Tente novamente.', 'error');
         })
 
-    //Marca eventos
+    
     markEventDate(date);
 }
 
 function listarEventos() {
-    // Faz uma requisição GET ao servidor para obter a lista de eventos
+    
     fetch('http://localhost:3000/eventos')
         .then(response => {
             if (!response.ok) {
@@ -135,7 +135,7 @@ function listarEventos() {
             return response.json();
         })
         .then(eventos => {
-            // Manipula a lista de eventos, por exemplo, exibindo-os na interface do usuário
+            
             const eventListDiv = document.getElementById('eventList');
             eventListDiv.innerHTML = '<h3>Lista de Eventos</h3>';
 
@@ -156,7 +156,7 @@ function listarEventos() {
         });
 }
 
-// Chama a função para listar os eventos quando a página carrega
+
 window.onload = listarEventos;
 
 function markEventDate(date) {
@@ -235,14 +235,14 @@ function listarProfessores() {
     });
 }
 function deletarProfessor(professorId) {
-    // Solicitação para deletar o aluno
+    
     fetch(`http://localhost:3000/professores/${professorId}`, {
         method: 'DELETE',
     })
     .then(response => response.json())
     .then(data => {
         console.log('Professor deletado com sucesso:', data);
-        // Atualize a lista de alunos após a exclusão
+        
         listarProfessores();
     })
     .catch(error => {
@@ -268,7 +268,7 @@ function cadastrarEvento() {
         data_fim: data_fim
     };
 
-    // Envia os dados do evento para o servidor
+    
     fetch('http://localhost:3000/eventos', {
         method: 'POST',
         headers: {
@@ -279,7 +279,7 @@ function cadastrarEvento() {
     .then(response => response.json())
     .then(data => {
         console.log('Evento criado com sucesso:', data);
-        listarEventos(); // Lista os eventos após criar com sucesso
+        listarEventos(); 
     })
     .catch(error => {
         console.error('Erro ao criar evento:', error);
@@ -289,7 +289,7 @@ function cadastrarEvento() {
 
 
 function listarEventos() {
-    // Faz uma requisição GET ao servidor para obter a lista de eventos
+    
     document.getElementById('eventList').innerHTML = '';
 
     fetch('http://localhost:3000/eventos')
@@ -317,14 +317,14 @@ function listarEventos() {
 
 
 function deletarEvento(eventoId) {
-    // Solicitação para deletar o aluno
+    
     fetch(`http://localhost:3000/eventos/${eventoId}`, {
         method: 'DELETE',
     })
     .then(response => response.json())
     .then(data => {
         console.log('evento deletado com sucesso:', data);
-        // Atualize a lista de alunos após a exclusão
+        
         listarEventos();
     })
     .catch(error => {
@@ -346,7 +346,7 @@ function cadastrarDisciplina(){
         carga_horaria: carga_horaria,
     };
 
-    // Envia os dados do evento para o servidor
+    
     fetch('http://localhost:3000/disciplinas', {
         method: 'POST',
         headers: {
@@ -391,7 +391,7 @@ function deletarDisciplina(disciplinaId) {
     .then(response => response.json())
     .then(data => {
         console.log('Disciplina deletada com sucesso:', data);
-        listarDisciplinas(); // Atualizar a lista após a exclusão
+        listarDisciplinas(); 
     })
     .catch(error => {
         console.error('Erro ao deletar disciplina:', error);
@@ -427,7 +427,7 @@ function cadastrarTurma() {
         .then(response => response.json())
         .then(data => {
             console.log('Turma cadastrada com sucesso:', data);
-            listarTurmas(); // Atualizar a lista após o cadastro
+            listarTurmas(); 
         })
         .catch(error => {
             console.error('Erro ao cadastrar turma:', error);
@@ -466,7 +466,7 @@ function listarAlunosTurma(turmaId) {
         .then(response => response.json())
         .then(data => {
             console.log('Alunos da turma:', data);
-            // Aqui você pode fazer o que quiser com a lista de alunos da turma
+            
         })
         .catch(error => {
             console.error('Erro ao obter a lista de alunos da turma:', error);
@@ -480,7 +480,7 @@ function deletarTurma(turmaId) {
         .then(response => response.json())
         .then(data => {
             console.log('Turma deletada com sucesso:', data);
-            listarTurmas(); // Atualizar a lista após a exclusão
+            listarTurmas(); 
         })
         .catch(error => {
             console.error('Erro ao deletar turma:', error);
